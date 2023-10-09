@@ -1,9 +1,14 @@
+import 'dart:ffi';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:topjoy/constants.dart' as constants;
 
 class HomeViewController extends GetxController{
+  BuildContext context;
+  HomeViewController(this.context);
+
   int bottlecapState = 0 ;
   int random = 0;
   String giveMeMessage(){
@@ -20,4 +25,16 @@ class HomeViewController extends GetxController{
      update();
     }
   }
+  Future<void> preloadAllImages() async{
+    for (int i = 0; i < 11; i++) {
+      await(AssetImage('images/bottlecap_$i.png'), context);
+    }
+  }
+
+    @override
+    void onInit() async{
+      // TODO: implement onInit
+      super.onInit();
+      await preloadAllImages();
+    }
 }
